@@ -7,13 +7,15 @@ import re
 
 
 # NOTE: manually tested get_link_names() to prototype satisfaction
-def get_link_names(curr_filename):
+def get_link_names(wiki_rootdir, curr_filename):
     """
     Returns a set of string filenames of the linked-to files in $filename.
     Note that the var $filename should have no extension, though the corresponding
     actual file name must have a .md extension
 
     Assumes links of the form: [reference text here](reference_filename_here)
+
+    $wiki_rootdir is a string of the form '/directory/path/like/this'
     """
 
     ''' 
@@ -45,9 +47,49 @@ def get_link_names(curr_filename):
         # Now we have templist == ['key words', 'file name here']
 
         refs.append(templist[0])  # We don't really need this, but it may be useful for later functionality
-        filenames.append(templist[1])
+        filenames.append('{}{}'.format(wiki_rootdir, templist[1]))
 
     return filenames
+
+
+def translate_vwgraph_to_dotlang(vw_graph, output_filename):
+    """
+    Takes a VimwikiGraph $vw_graph and a string file name. Creates
+    a file named $output_filename containing a representation of 
+    $vw_graph written in the 'dot' graphing language (compatible
+    with graphviz).
+    """
+    with open(output_filename, 'w') as out:  # Write header
+        out.write('digraph VimwikiGraph {\n')
+
+    # Write graph body
+    for vtx_a in set(vw_graph.edges.keys()):
+        neighbors = vw_graph.edges[vtx_a]
+        for vtx_b in neighbors:
+            with open(output_filename, 'a') as out: # Write closing }
+                out.write('    \"{}\" -> \"{}\";\n'.format(vtx_a, vtx_b))
+
+    with open(output_filename, 'a') as out: # Write closing }
+        out.write('}\n')
+
+
+
+
+
+
+
+
+def dotlang_to_outfile(dotlang_filename, output_filename):
+    # NOTE: lower priority
+    """
+    Takes a string $dotlang_filename (with ext) of a file written 
+    in the 'dot' language and creates an output file named after the
+    string $output_file_name with the designated extension. This
+    function is just a driver for the command
+    `dot -Tv -O dotlang_filename.dot` where v is the extension. 
+    TODO: figure out command to customize output filename
+    """
+
 
 
 
@@ -90,15 +132,17 @@ class VimwikiGraph:
                 self._visited.add(v_curr)  # Visit curr vtx
 
                 # Generate adjacent neighbors & add to queue
-                neighbors = get_link_names(v_curr) 
+                neighbors = get_link_names(self.root, v_curr) 
                 self.edges[v_curr] = neighbors
                 for v in neighbors:  # TODO: rewrite using list comp.
                     if v not in self._visited:
-                        q.append('{}{}'.format(self.root, v))
+                        q.append('{}'.format(v))
+    
+    
 
 
-    # TODO: may have to define this before __init__ method
     def _try_add_node(self, parent, child):
+        # TODO: delete this function if I don't find a use for it soon
         """
         Tries to add $child to the adjacency set of $parent. If a file
         by the same name in the adjacency set doesn't already exist,
@@ -120,14 +164,16 @@ class VimwikiGraph:
 
 
 def main():
-    root_dirname = '/home/hlebaron98/exocortex/facio/vimwiki-cartographer/testwiki/'  # (must be without extension)
+    #root_dirname = '/home/hlebaron98/exocortex/facio/vimwiki-cartographer/testwiki/'  # (must be without extension)
+    root_dirname = './testwiki/'  # (must be without extension)
     #print('GETLINKNAMES() == ', get_link_names(start_filename))  # DBGPRNT
     start_filename_no_ext = 'index'
 
     graph = VimwikiGraph(root_dirname, start_filename_no_ext)
     graph._dbg_print()
 
-
+    output_filename = 'graph.dot'
+    translate_vwgraph_to_dotlang(graph, output_filename)
 
 
 if __name__ == '__main__':
