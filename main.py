@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # main.py
 
-import os
+import os  # TODO: do i need the os module?
 from collections import deque
 import re
 
