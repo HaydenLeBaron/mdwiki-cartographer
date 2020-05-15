@@ -8,9 +8,13 @@ import re
 
 # NOTE: manually tested get_link_names() to prototype satisfaction
 def get_link_names(curr_filename):
-    """Returns a set of string filenames of the linked-to files in $filename.
+    """
+    Returns a set of string filenames of the linked-to files in $filename.
     Note that the var $filename should have no extension, though the corresponding
-    actual file name must have a .md extension"""
+    actual file name must have a .md extension
+
+    Assumes links of the form: [reference text here](reference_filename_here)
+    """
 
     ''' 
     TODO: Consider making this open file line not throw exception when file doesn't exist
@@ -48,11 +52,16 @@ def get_link_names(curr_filename):
 
 
 class VimwikiGraph:
-    """A directed graph representing a the links in a vim wiki. Assumes the actual vim wiki does not have self references. No wiki page should have a link to itself. Also assumes all file names in the wiki are unique, even if they are split among different directories."""
+    """
+    A directed graph representing a the links in a vim wiki. Assumes the
+    actual vim wiki does not have self references. No wiki page should 
+    have a link to itself. Also assumes all file names in the wiki are 
+    unique, even if they are split among different directories.
+    """
     
-    def __init__(self, root_dir_name):
-        """Init a new (empty) VimwikiGraph
-        Root dirname should be of the form:
+    def __init__(self, root_dir_name, start_filename_no_ext):
+        """
+        Init a new VimwikiGraph. Root dirname should be of the form:
         /dirA/dirB/.../dirN/
         """
         
@@ -69,10 +78,10 @@ class VimwikiGraph:
         # Generate graph in a breadth-first manner
         # ----------------------------------------
 
-        root_index = '{}index'.format(self.root)
+        root_file = '{}{}'.format(self.root, start_filename_no_ext)
 
         q = deque()
-        q.append(root_index)
+        q.append(root_file)
         while q:
 
             v_curr = q.popleft()
@@ -111,11 +120,11 @@ class VimwikiGraph:
 
 
 def main():
-    # test on index.md
-    start_filename = '/home/hlebaron98/exocortex/facio/vimwiki-cartographer/testwiki/'  # (must be without extension)
+    root_dirname = '/home/hlebaron98/exocortex/facio/vimwiki-cartographer/testwiki/'  # (must be without extension)
     #print('GETLINKNAMES() == ', get_link_names(start_filename))  # DBGPRNT
+    start_filename_no_ext = 'index'
 
-    graph = VimwikiGraph(start_filename)
+    graph = VimwikiGraph(root_dirname, start_filename_no_ext)
     graph._dbg_print()
 
 

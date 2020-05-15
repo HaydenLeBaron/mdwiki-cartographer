@@ -6,7 +6,6 @@
     * [Vimwiki Cartographer](vimwiki_cartographer) -- A program for diagramming the structure of a (markdown) vimwiki
     
 ## Immortal Projects
-   M
     * orgsys       -- Place for stuff about my organizational systems and their maintainence and improvement.
     * inbox        -- First stop for to-be-categorized material
     * mundane      -- Day to day minor plans (TW proj)
