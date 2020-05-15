@@ -1,5 +1,7 @@
 # Lecture 1 Notes: MEEN2010
 
+[index](index)
+
 ## Syllabus and about this class
 
 * Exams might be pushed back
