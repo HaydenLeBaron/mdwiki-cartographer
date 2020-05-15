@@ -8,23 +8,31 @@ import re
 
 # NOTE: manually tested get_link_names() to prototype satisfaction
 def get_link_names(curr_filename):
-    """Returns a set of string filenames of the linked-to files in $filename"""
-    with open (curr_filename, 'r') as currfile:
+    """Returns a set of string filenames of the linked-to files in $filename.
+    Note that the var $filename should have no extension, though the corresponding
+    actual file name must have a .md extension"""
+
+    ''' 
+    TODO: Consider making this open file line not throw exception when file doesn't exist
+    There just might be a link that doesn't yet point to a file.
+    '''
+    with open ('{}.md'.format(curr_filename), 'r') as currfile:
         lines = currfile.readlines()
 
-    print('LINES = ', lines)
+    #print('LINES = ', lines)  # DBGPRNT
+
     ref_filename = []
     for line in lines:
         # Find matches for links of the form: [reference text here](reference_filename_here)
         ref_filename.extend(re.findall('\[.*?\]\(.*?\)', line))
 
-    print('REF_FILENAME = ', ref_filename)
+    #print('REF_FILENAME = ', ref_filename)  # DBGPRNT
     
     refs = []
     filenames = []
     for pair in ref_filename:
         templist = re.findall('[^\[\]\(\)]*', pair)  
-        print('TEMPLIST = ', templist)  # TODO: deleteme
+        #print('TEMPLIST = ', templist)  # DBGPRNT
         
         # Now we have templist == ['', 'key words', '', '', 'file name here', '', '']
         while '' in templist:  # Remove empty strings from list
@@ -40,14 +48,17 @@ def get_link_names(curr_filename):
 
 
 class VimwikiGraph:
-    """A directed graph representing a the links in a vim wiki."""
+    """A directed graph representing a the links in a vim wiki. Assumes the actual vim wiki does not have self references. No wiki page should have a link to itself. Also assumes all file names in the wiki are unique, even if they are split among different directories."""
     
-    def __init__(self, root_filename):
-        """Init a new (empty) VimwikiGraph"""
+    def __init__(self, root_dir_name):
+        """Init a new (empty) VimwikiGraph
+        Root dirname should be of the form:
+        /dirA/dirB/.../dirN/
+        """
         
         # Init fields
         # ----------------------------------------
-        self.root = root_filename
+        self.root = root_dir_name
 
         # Maps a string wimwiki filename to a set of linked filenames
         self.edges = {self.root: set()}
@@ -58,8 +69,10 @@ class VimwikiGraph:
         # Generate graph in a breadth-first manner
         # ----------------------------------------
 
+        root_index = '{}index'.format(self.root)
+
         q = deque()
-        q.append(self.root)
+        q.append(root_index)
         while q:
 
             v_curr = q.popleft()
@@ -72,7 +85,7 @@ class VimwikiGraph:
                 self.edges[v_curr] = neighbors
                 for v in neighbors:  # TODO: rewrite using list comp.
                     if v not in self._visited:
-                        q.append(v)
+                        q.append('{}{}'.format(self.root, v))
 
 
     # TODO: may have to define this before __init__ method
@@ -87,13 +100,25 @@ class VimwikiGraph:
         self.edges[parent].add(child)
         return len(self.edges[parent]) > pre_add_size
 
+    def _dbg_print(self):
+        print('---------VimwikiGraph._dbg_print-------')
+        print('edges == ', self.edges)
+        print()
+        print('visited == ', self._visited)
+        print('---------------------------------------')
+
 
 
 
 def main():
     # test on index.md
-    filename = './testwiki/index.md'
-    print('GETLINKNAMES() == ', get_link_names(filename))
+    start_filename = '/home/hlebaron98/exocortex/facio/vimwiki-cartographer/testwiki/'  # (must be without extension)
+    #print('GETLINKNAMES() == ', get_link_names(start_filename))  # DBGPRNT
+
+    graph = VimwikiGraph(start_filename)
+    graph._dbg_print()
+
+
 
 
 if __name__ == '__main__':

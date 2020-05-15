@@ -1,11 +1,11 @@
-# [index.md](index.md)
+# index
 
 ## Current Projects
 
     * [MEEN2010](MEEN2010)     -- Mechanical Engineering 2010: Statics
     * [Vimwiki Cartographer](vimwiki_cartographer) -- A program for diagramming the structure of a (markdown) vimwiki
     
-## Immortal [Projects](Projects)
+## Immortal Projects
    M
     * orgsys       -- Place for stuff about my organizational systems and their maintainence and improvement.
     * inbox        -- First stop for to-be-categorized material
@@ -23,7 +23,7 @@
 
 ## Backlogs
 
-    * book_backlog
+    * [book_backlog](book_backlog)
     * film_backlog
     * show_backlog
     * videogame_backlog
