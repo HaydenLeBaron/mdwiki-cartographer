@@ -7,6 +7,14 @@ This program creates an image of a directed graph representing a vimwiki. This p
 * All files in the wiki are in one directory
 * All files are .md files
 * All links are in the markdown style, e.g. `[File description here](file_name_here)`
+* There may be other assumptions that I haven't pinned down. So far I have only tested it on the test wiki included in the repository.
+
+
+## Quick demo
+
+Make sure you have the graphviz package installed first.
+
+To see the program at work without creating your own wiki, just `cd` into the root of the repository and run `./cartographer ./testwiki/ index map.dot`. This will generate an svg graph of `testwiki`. Now open `map.dot.svg` in a web browser.
 
 
 ## How to run

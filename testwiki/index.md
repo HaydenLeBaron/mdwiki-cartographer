@@ -7,9 +7,9 @@
     * orgsys       -- Place for stuff about my organizational systems and their maintainence and improvement.
     * [inbox](inbox)        -- First stop for to-be-categorized material
     * mundane      -- Day to day minor plans (TW proj)
-    * professional -- Catch all area for professional related material (&TW proj)
+    * professional -- Catch all area for professional related material
     * scratchpad   -- Place to keep quick notes that don't belong anywhere else
-    * habits       -- Habit tracking (TW proj)
+    * habits       -- Habit tracking
 
 
 
