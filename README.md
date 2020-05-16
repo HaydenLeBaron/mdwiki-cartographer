@@ -1,5 +1,7 @@
 # vimwiki-cartographer
 
+These instructions are up to date at least as of commit 5c97b26a0dd3a8739881c285c4ca18c0caa48cd4 (May 16, 2020)
+
 ## About
 
 This program creates an image of a directed graph representing a vimwiki. This project is a work in progress. At the moment, the program makes many fragile assumptions about the vimwiki, including:
