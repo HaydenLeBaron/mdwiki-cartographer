@@ -1,0 +1,16 @@
+digraph VimwikiGraph {
+    "./testwiki/inbox" -> "./testwiki/hello_world";
+    "./testwiki/test1A" -> "./testwiki/test2A";
+    "./testwiki/test1A" -> "./testwiki/test2B";
+    "./testwiki/index" -> "./testwiki/MEEN2010";
+    "./testwiki/index" -> "./testwiki/vimwiki_cartographer";
+    "./testwiki/index" -> "./testwiki/inbox";
+    "./testwiki/index" -> "./testwiki/book_backlog";
+    "./testwiki/index" -> "./testwiki/test_link";
+    "./testwiki/book_backlog" -> "./testwiki/MEEN2010";
+    "./testwiki/MEEN2010" -> "./testwiki/lec_1_notes_meen2010";
+    "./testwiki/MEEN2010" -> "./testwiki/lec_2_notes_meen2010";
+    "./testwiki/lec_1_notes_meen2010" -> "./testwiki/index";
+    "./testwiki/test_link" -> "./testwiki/test1A";
+    "./testwiki/test_link" -> "./testwiki/test1B";
+}

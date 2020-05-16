@@ -157,21 +157,21 @@ class VimwikiGraph:
         print('---------------------------------------')
 
 
-def main():
-    # root_dirname =
-    # '/home/hlebaron98/exocortex/facio/vimwiki-cartographer/testwiki/'  #
-    # (must be without extension)
-    root_dirname = './testwiki/'  # (must be without extension)
-    # print('GETLINKNAMES() == ', get_link_names(start_filename))  # DBGPRNT
-    start_filename_no_ext = 'index'
-
-    graph = VimwikiGraph(root_dirname, start_filename_no_ext)
-    graph._dbg_print()
-
-    output_filename = 'graph.dot'
-    translate_vwgraph_to_dotlang(graph, output_filename)
-    dotlang_to_outfile(output_filename)
-
-
-if __name__ == '__main__':
-    main()
+#def main():
+#    # root_dirname =
+#    # '/home/hlebaron98/exocortex/facio/vimwiki-cartographer/testwiki/'  #
+#    # (must be without extension)
+#    root_dirname = './testwiki/'  # (must be without extension)
+#    # print('GETLINKNAMES() == ', get_link_names(start_filename))  # DBGPRNT
+#    start_filename_no_ext = 'index'
+#
+#    graph = VimwikiGraph(root_dirname, start_filename_no_ext)
+#    graph._dbg_print()
+#
+#    output_filename = 'graph.dot'
+#    translate_vwgraph_to_dotlang(graph, output_filename)
+#    dotlang_to_outfile(output_filename)
+#
+#
+#if __name__ == '__main__':
+#    main()
