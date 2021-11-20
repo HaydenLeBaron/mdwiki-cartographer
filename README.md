@@ -1,16 +1,14 @@
-# vimwiki-cartographer
+# mdwiki-cartographer
 
 These instructions are up to date at least as of commit 5c97b26a0dd3a8739881c285c4ca18c0caa48cd4 (May 16, 2020)
 
 ## About
 
-This program creates an image of a directed graph representing a vimwiki. This project is a work in progress. At the moment, the program makes many fragile assumptions about the vimwiki, including:
+This program creates an image of a directed graph representing a vimwiki. This project is a work in progress. At the moment, the program makes certain assumptions about the markdown wiki, including:
 
 * All files in the wiki are in one directory
 * All files are .md files
 * All links are in the markdown style, e.g. `[File description here](file_name_here)`
-* There may be other assumptions that I haven't pinned down. So far I have only tested it on the test wiki included in the repository.
-
 
 ## Quick demo
 
