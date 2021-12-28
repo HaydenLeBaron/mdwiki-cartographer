@@ -4,7 +4,7 @@ These instructions are up to date at least as of commit 5c97b26a0dd3a8739881c285
 
 ## About
 
-This program creates an image of a directed graph representing a vimwiki. This project is a work in progress. At the moment, the program makes certain assumptions about the markdown wiki, including:
+Creates an image of a directed graph representing the structure of a markdown wiki. The program makes certain assumptions about the markdown wiki, including:
 
 * All files in the wiki are in one directory
 * All files are .md files
